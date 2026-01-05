@@ -1,8 +1,3 @@
 # /__pycache__/*
 *.pyc
-*__init__.py
-*egg-info*
-.idea
-*.pyc
 venv/
-
