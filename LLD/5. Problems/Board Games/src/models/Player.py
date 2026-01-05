@@ -1,11 +1,9 @@
-from abc import ABC
-
-
-class Player(ABC):
-    id = None
-    __history = []
+class Player:
 
     def __init__(self, id: int, name: str):
         self.id = id
-        self.__history = []
         self.name = name
+    def display_name(self):
+        print(self.name)
+
+

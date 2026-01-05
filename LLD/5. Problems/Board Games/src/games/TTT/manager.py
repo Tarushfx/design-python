@@ -1,16 +1,23 @@
 from games.TTT.game import TicTacToeGame
 from games.TTT.move import TicTacToeMove
 from engine.GameManager import GameManager
+from games.TTT.stats import TicTacToeStats
+from games.commons.stats_service import StatsService
 
 
 class TicTacToeGameManager(GameManager):
-    game_count = 1
+    game_count = 0
 
-    # TODO make it singleton
     def __init__(self):
         super().__init__(self.game_count)
         self.sign_to_player = None
         self.player_signs = None
+        self.stats_service = TicTacToeStats()
+        print("TicTacToeGameManager initialized")
+
+    def new_game(self):
+        self.game_count += 1
+        self.clear()
 
     def start_game(self):
         if len(self.players) < self.min_players:
@@ -20,7 +27,6 @@ class TicTacToeGameManager(GameManager):
         self.set_game(self.game)
         print(f"Game {self.id} Initialized")
         self.set_player_signs()
-        self.game_count += 1
 
     def set_players(self, players):
         self.players = players
@@ -47,22 +53,36 @@ class TicTacToeGameManager(GameManager):
         print(f"{"".join(map(str, winners))} Wins game {self.game.id}!")
         print(f"{"".join(map(str, losers))} Loses game {self.game.id}!")
         # TODO add to stats here
-        pass
+        self.game.winner_player = winners
+        self.game.loser_player = losers
+        self.stats_service.record_game(self.game)
+        self.clear()
 
     def calculate_winners(self):
         winner_move = self.game.get_winner()
         return [self.sign_to_player[winner_move]]
 
     def move(self, move: TicTacToeMove):
-        move.set_sign(self.player_signs[move.player])
         if self.game.is_complete():
             print(f"Invalid Move. Game {self.game.id} has ended")
             return
+        move.set_sign(self.player_signs[move.player])
         if self.game.is_valid_move(move):
             self.game.make_move(move)
             print(f"Player {move.player} moved {move.sign} at {move.row}x{move.col}")
-            self.game.board.print_board()
             if self.game.is_complete():
+                self.game.board.print_board()
                 self.__end_game()
         else:
             print("Invalid Move.")
+
+    def display_game_stats(self, game_id):
+        self.stats_service.display_game_stats(game_id)
+
+    def display_player_stats(self, player_id):
+        self.stats_service.display_player_stats(player_id)
+
+    def clear(self):
+        self.sign_to_player = None
+        self.player_signs = None
+        self.players = []

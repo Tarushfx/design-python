@@ -13,6 +13,8 @@ class TicTacToeGame(Game):
         self.signs = ["O", "X"]
         self.current_move = self.signs[0]
         self.set_player_list(players)
+        self.winner_player = None
+        self.loser_player = None
 
     def flip_move(self):
         self.current_move = self.signs[self.current_move == self.signs[0]]
