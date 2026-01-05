@@ -66,11 +66,25 @@ class TicTacToeGame(Game):
             if flag:
                 self.set_winner(start)
                 return flag
+        flag = True
+        for row in range(size):
+            for col in range(size):
+                if not self.board.is_position_filled(row, col):
+                    flag = False
+        if flag:
+            self.game_draw()
+            return True
         return False
 
     def set_winner(self, winner):
-        self.completed = True
+        self.mark_complete()
         self.winner = winner
+
+    def game_draw(self):
+        self.mark_complete()
+
+    def mark_complete(self):
+        self.completed = True
 
     def get_winner(self):
         if not self.completed:

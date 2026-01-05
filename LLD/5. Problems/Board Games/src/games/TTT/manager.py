@@ -49,10 +49,12 @@ class TicTacToeGameManager(GameManager):
         print("Game Ended")
         winners = self.calculate_winners()
         players = self.game.get_player_list()
-        losers = list(set(players) - set(winners))
-        print(f"{"".join(map(str, winners))} Wins game {self.game.id}!")
-        print(f"{"".join(map(str, losers))} Loses game {self.game.id}!")
-        # TODO add to stats here
+        losers = list(set(players) - set(winners)) if winners else []
+        if winners:
+            print(f"{"".join(map(str, winners))} Wins game {self.game.id}!")
+            print(f"{"".join(map(str, losers))} Loses game {self.game.id}!")
+        else:
+            print(f"Game {self.game.id} drawn")
         self.game.winner_player = winners
         self.game.loser_player = losers
         self.stats_service.record_game(self.game)
@@ -60,6 +62,8 @@ class TicTacToeGameManager(GameManager):
 
     def calculate_winners(self):
         winner_move = self.game.get_winner()
+        if not winner_move:
+            return []
         return [self.sign_to_player[winner_move]]
 
     def move(self, move: TicTacToeMove):
