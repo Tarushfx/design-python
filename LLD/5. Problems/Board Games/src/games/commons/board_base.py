@@ -1,2 +1,2 @@
 class BoardBase(object):
-    id:int
+    id: int
