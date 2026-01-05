@@ -10,7 +10,8 @@ class Pizza:
         return self.price
 
     def __str__(self) -> str:
-        return f"Description: {self.description}," + f" Price: ${self.price}"
+        return f"Description: {self.description},"\
+            +f" Price: ${self.price}"
 
 
 # Decorators (inherit from base Pizza class)
@@ -18,7 +19,8 @@ class Mozzarella(Pizza):
     def __init__(self, pizza):
         super().__init__()
         self.pizza = pizza
-        self.description = self.pizza.get_description() + " with mozzarella cheese"
+        self.description = self.pizza.get_description() + \
+            " with mozzarella cheese"
         self.price += 1
 
 
@@ -26,7 +28,8 @@ class TomatoSauce(Pizza):
     def __init__(self, pizza):
         super().__init__()
         self.pizza = pizza
-        self.description = self.pizza.get_description() + " with tomato sauce"
+        self.description = self.pizza.get_description() + \
+            " with tomato sauce"
         self.price += 1
 
 
@@ -34,7 +37,8 @@ class Pepperoni(Pizza):
     def __init__(self, pizza):
         super().__init__()
         self.pizza = pizza
-        self.description = self.pizza.get_description() + " with pepperoni"
+        self.description = self.pizza.get_description() + \
+            " with pepperoni"
         self.price += 2
 
 
