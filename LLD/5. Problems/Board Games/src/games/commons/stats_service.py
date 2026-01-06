@@ -5,10 +5,7 @@ from games.commons.GameResult import GameResult
 
 class StatsService(ABC):
     _instance = None
-    __all_games = None
-
-    def __init__(self):
-        self.__all_games = []
+    __all_games = []
 
     def __new__(cls):
         if not cls._instance:
@@ -24,5 +21,15 @@ class StatsService(ABC):
     def get_game_stats(self, game_id):
         pass
 
-    def record_game(self, game: GameResult):
-        self.__all_games.append(game)
+    @classmethod
+    def record_game(cls, game: GameResult):
+        cls.__all_games.append(game)
+
+    @classmethod
+    def display_player_all_stats(cls, player_id):
+        result = []
+        for game in cls.__all_games:
+            if game.id == player_id:
+                result.append(game)
+                print(game)
+        return result
