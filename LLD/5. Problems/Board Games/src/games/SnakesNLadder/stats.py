@@ -1,10 +1,9 @@
-from games.TTT.game import TicTacToeGame
-from games.TTT.game_result import TicTacToeGameResult
-from games.commons.GameResult import GameResult
+from games.SnakesNLadder.game import SnakeNLadderGame
+from games.SnakesNLadder.game_result import SnakesNLadderGameResult
 from games.commons.stats_service import StatsService
 
 
-class TicTacToeStats(StatsService):
+class SnakesNLadderStats(StatsService):
     def __init__(self):
         super().__init__()
         self.__games = []
@@ -33,8 +32,8 @@ class TicTacToeStats(StatsService):
         for game in result:
             print(game)
 
-    def record_game(cls, game: TicTacToeGame):
-        game_results = TicTacToeGameResult(
+    def record_game(cls, game: SnakeNLadderGame):
+        game_results = SnakesNLadderGameResult(
             winner_player=game.winner_player,
             loser_player=game.loser_player,
             id=game.id,

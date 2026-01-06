@@ -1,7 +1,12 @@
+import time
+
+from engine.GameManager import GameManager
+from games.SnakesNLadder.manager import SnakesNLadderGameManager
 from games.TTT.game import TicTacToeGame
 from games.TTT.manager import TicTacToeGameManager
 from games.TTT.move import TicTacToeMove
 from games.commons.move import Move
+from games.commons.stats_service import StatsService
 from models.Player import Player
 
 
@@ -40,6 +45,23 @@ def main():
     tt_game.display_player_stats(1)
     tt_game.display_player_stats(2)
     tt_game.display_player_stats(3)
+
+    snl_game = SnakesNLadderGameManager()
+    snl_game.new_game()
+    snl_game.add_player(p1)
+    snl_game.add_player(p2)
+    snl_game.add_player(p3)
+    snl_game.start_game()
+    while not snl_game.game_completed():
+        player = snl_game.next_move()
+        move = snl_game.create_move(player)
+        snl_game.move(move)
+        time.sleep(0.1)
+
+    snl_game.display_player_stats(1)
+    snl_game.display_player_stats(2)
+
+    StatsService.display_player_all_stats(1)
 
 
 if __name__ == "__main__":
