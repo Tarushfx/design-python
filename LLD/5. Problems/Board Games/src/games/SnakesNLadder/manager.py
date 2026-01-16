@@ -17,7 +17,7 @@ class SnakesNLadderGameManager(GameManager):
         self.sign_to_player = None
         self.player_signs = None
         self.stats_service = SnakesNLadderStats()
-        print("TicTacToeGameManager initialized")
+        print("SnakesNLadderGameManager initialized")
 
     def new_game(self):
         self.game_count += 1
