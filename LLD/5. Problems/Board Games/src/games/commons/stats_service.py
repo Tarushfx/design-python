@@ -29,7 +29,7 @@ class StatsService(ABC):
     def display_player_all_stats(cls, player_id):
         result = []
         for game in cls.__all_games:
-            if game.id == player_id:
+            if player_id in game.get_player_list():
                 result.append(game)
                 print(game)
         return result
